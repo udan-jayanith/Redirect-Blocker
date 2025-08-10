@@ -5,6 +5,7 @@ let keepAlive;
 const builtInURLs = [
     "https://google.com/",
     "chrome://",
+    "Edge://newtab",
     "chrome-extension://egmgebeelgaakhaoodlmnimbfemfgdah",
     "https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values",
     "https://github.com/Tyson3101/",
