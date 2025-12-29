@@ -45,3 +45,5 @@ mainTab.querySelector(".main-tab .home-tab").addEventListener("click", () => {
 mainTab.querySelector(".main-tab .settings-tab").addEventListener("click", () => {
 	setMainContent(getSettingsPage());
 });
+
+
