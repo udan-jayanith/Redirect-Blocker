@@ -105,6 +105,7 @@ nav {
 	background: var(--surface);
 	border-radius: var(--border-lg);
 	box-shadow: var(--shadow-lg);
+	margin: 10px 0px;
 	.settingsPage {
 		padding: 10px 0px;
 	}
