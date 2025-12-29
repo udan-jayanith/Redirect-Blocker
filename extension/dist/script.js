@@ -8,13 +8,9 @@ const preventSameTabRedirectsSelect = document.querySelector("#preventSameTabRed
 const shortCutSingleInput = document.querySelector("#shortCutSingleInput");
 const shortCutAllInput = document.querySelector("#shortCutAllInput");
 const onStartup = document.querySelector("#onStartup");
-const shortCutBtn = document.querySelector("#shortCutBtn");
 const shortCutSingleDisplay = document.querySelector("#shortCutSingleDisplay");
 const shortCutAllDisplay = document.querySelector("#shortCutAllDisplay");
-const nextSettings = document.querySelector("#nextSettings");
-const backSettings = document.querySelector("#backSettings");
-const pageNumber = document.querySelector("#pageNumber");
-const pageList = document.querySelector(".pageList");
+
 const changeToAllowedURL = document.querySelector("#changeToAllowedURLPage");
 const changeToSavedURL = document.querySelector("#changeToSavedURLPage");
 const placeholderSettings = {
@@ -111,13 +107,7 @@ currentTabExtMode.onclick = () => {
 allTabsExtMode.onclick = () => {
     changeExtensionMode("all");
 };
-shortCutBtn.onclick = () => {
-    document.querySelector(".shortCuts").classList.toggle("remove");
-    shortCutBtn.innerText =
-        shortCutBtn.innerText === "Show Shortcuts"
-            ? "Hide Shortcuts"
-            : "Show Shortcuts";
-};
+
 function changeExtensionMode(result) {
     currentTabExtMode.classList.remove("selected");
     allTabsExtMode.classList.remove("selected");
@@ -225,54 +215,8 @@ function handleSettingsChange() {
             });
         });
     }
-    nextSettings.onclick = () => {
-        const settingPage = document.querySelectorAll(".settingsPage");
-        const active = [...settingPage].find((page) => page.classList.contains("active"));
-        const next = (() => {
-            const nextIndex = parseInt(active.dataset["settingindex"]) + 1;
-            if (nextIndex >= settingPage.length)
-                return settingPage[0];
-            return settingPage[nextIndex];
-        })();
-        pageNumber.innerText = `${parseInt(next.dataset["settingindex"]) + 1}/5`;
-        active.classList.remove("active");
-        next.classList.add("active");
-        pageList.querySelector(".active").classList.remove("active");
-        pageList.children[parseInt(next.dataset["settingindex"])].classList.add("active");
-    };
-    backSettings.onclick = () => {
-        const settingPage = document.querySelectorAll(".settingsPage");
-        const active = [...settingPage].find((page) => page.classList.contains("active"));
-        const last = (() => {
-            const lastIndex = parseInt(active.dataset["settingindex"]) - 1;
-            if (lastIndex < 0) {
-                pageNumber.innerText = `5/5`;
-                return settingPage[4];
-            }
-            else {
-                pageNumber.innerText = `${parseInt(active.dataset["settingindex"])}/5`;
-                return settingPage[lastIndex];
-            }
-        })();
-        active.classList.remove("active");
-        last.classList.add("active");
-        pageList.querySelector(".active").classList.remove("active");
-        pageList.children[parseInt(last.dataset["settingindex"])].classList.add("active");
-    };
 }
-pageList.onclick = (e) => {
-    const ele = e.target;
-    if (ele?.tagName?.toLowerCase() == "a") {
-        const settingPage = document.querySelectorAll(".settingsPage");
-        const activePage = [...settingPage].find((page) => page.classList.contains("active"));
-        const nextPage = settingPage[parseInt(ele.dataset["pageindex"])];
-        pageNumber.innerText = `${parseInt(nextPage.dataset["settingindex"]) + 1}/5`;
-        activePage.classList.remove("active");
-        nextPage.classList.add("active");
-        pageList.querySelector(".active").classList.remove("active");
-        ele.classList.add("active");
-    }
-};
+
 function enableOrDisableTab(tab, disable = false) {
     chrome.storage.local.get("disabledTabs", ({ disabledTabs }) => {
         if (!disabledTabs)
